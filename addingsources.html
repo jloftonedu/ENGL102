@@ -1,0 +1,366 @@
+import React, { useState } from 'react';
+import { CheckCircle, XCircle, RefreshCw, BookOpen, Edit3, Target } from 'lucide-react';
+
+const SecondarySourcesTemplate = () => {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [userAnswers, setUserAnswers] = useState({});
+  const [showFeedback, setShowFeedback] = useState({});
+
+  const steps = [
+    {
+      title: "Understanding Secondary Sources",
+      content: (
+        <div className="space-y-4">
+          <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h3 className="font-semibold text-blue-800 mb-2">What are Secondary Sources?</h3>
+            <p className="text-blue-700">Secondary sources analyze, interpret, or comment on primary sources. They provide scholarly perspective and context to support your arguments.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-green-50 p-4 rounded-lg">
+              <h4 className="font-semibold text-green-800 mb-2">Good Secondary Sources:</h4>
+              <ul className="text-green-700 text-sm space-y-1">
+                <li>• Academic journal articles</li>
+                <li>• Scholarly books</li>
+                <li>• Peer-reviewed research</li>
+                <li>• Expert analysis</li>
+              </ul>
+            </div>
+            <div className="bg-red-50 p-4 rounded-lg">
+              <h4 className="font-semibold text-red-800 mb-2">Avoid These:</h4>
+              <ul className="text-red-700 text-sm space-y-1">
+                <li>• Wikipedia as a final source</li>
+                <li>• Personal blogs</li>
+                <li>• Non-academic websites</li>
+                <li>• Outdated sources (unless historical)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Integration Methods",
+      content: (
+        <div className="space-y-4">
+          <h3 className="font-semibold text-gray-800 mb-3">Three Ways to Integrate Sources:</h3>
+          <div className="space-y-4">
+            <div className="border-l-4 border-purple-400 pl-4">
+              <h4 className="font-semibold text-purple-800">1. Direct Quote</h4>
+              <p className="text-gray-700 text-sm mb-2">Use the author's exact words (sparingly)</p>
+              <div className="bg-gray-50 p-3 rounded text-sm italic">
+                As Johnson argues, "Climate change represents the most pressing challenge of our generation" (Johnson 45).
+              </div>
+            </div>
+            <div className="border-l-4 border-green-400 pl-4">
+              <h4 className="font-semibold text-green-800">2. Paraphrase</h4>
+              <p className="text-gray-700 text-sm mb-2">Restate the idea in your own words</p>
+              <div className="bg-gray-50 p-3 rounded text-sm italic">
+                Johnson emphasizes that climate change poses unprecedented threats to future generations (Johnson 45).
+              </div>
+            </div>
+            <div className="border-l-4 border-blue-400 pl-4">
+              <h4 className="font-semibold text-blue-800">3. Summary</h4>
+              <p className="text-gray-700 text-sm mb-2">Condense main points from longer passages</p>
+              <div className="bg-gray-50 p-3 rounded text-sm italic">
+                Research by Johnson demonstrates multiple environmental and economic impacts of climate change (Johnson 45-67).
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Practice: Choose Integration Method",
+      content: (
+        <div className="space-y-4">
+          <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+            <h3 className="font-semibold text-yellow-800 mb-2">Your Argument:</h3>
+            <p className="text-yellow-700">"Social media has significantly changed how teenagers communicate with their peers."</p>
+          </div>
+          
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <h4 className="font-semibold mb-2">Available Source:</h4>
+            <p className="text-sm italic mb-2">From Dr. Sarah Martinez's research:</p>
+            <p className="text-sm">"Teenagers today spend an average of 3.5 hours daily on social media platforms, fundamentally altering traditional face-to-face interaction patterns and creating new forms of digital intimacy."</p>
+          </div>
+
+          <div className="space-y-3">
+            <h4 className="font-semibold">Which integration method would work best here?</h4>
+            {['Direct Quote', 'Paraphrase', 'Summary'].map((method) => (
+              <button
+                key={method}
+                onClick={() => {
+                  setUserAnswers({...userAnswers, method: method});
+                  setShowFeedback({...showFeedback, method: true});
+                }}
+                className={`w-full p-3 text-left rounded-lg border transition-colors ${
+                  userAnswers.method === method 
+                    ? 'bg-blue-100 border-blue-300' 
+                    : 'bg-white border-gray-200 hover:bg-gray-50'
+                }`}
+              >
+                {method}
+              </button>
+            ))}
+            
+            {showFeedback.method && (
+              <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+                <p className="text-sm text-blue-800">
+                  <strong>Good thinking!</strong> Any method could work, but <strong>paraphrasing</strong> is often best for freshman papers. 
+                  It shows you understand the source while maintaining your voice. Direct quotes should be used sparingly for particularly powerful or precise language.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Practice: Write Your Integration",
+      content: (
+        <div className="space-y-4">
+          <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+            <h3 className="font-semibold text-green-800 mb-2">Now You Try!</h3>
+            <p className="text-green-700">Write a sentence that integrates Dr. Martinez's research to support your argument about social media changing teen communication.</p>
+          </div>
+
+          <div className="space-y-3">
+            <label className="block font-medium text-gray-700">Your sentence:</label>
+            <textarea
+              value={userAnswers.sentence || ''}
+              onChange={(e) => setUserAnswers({...userAnswers, sentence: e.target.value})}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              rows="3"
+              placeholder="Write your sentence here..."
+            />
+            
+            <button
+              onClick={() => setShowFeedback({...showFeedback, sentence: true})}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Get Feedback
+            </button>
+
+            {showFeedback.sentence && userAnswers.sentence && (
+              <div className="mt-4 p-4 bg-green-50 rounded-lg border-l-4 border-green-400">
+                <h4 className="font-semibold text-green-800 mb-2">Feedback Checklist:</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center space-x-2">
+                    {userAnswers.sentence.toLowerCase().includes('martinez') || userAnswers.sentence.includes('(') ? 
+                      <CheckCircle className="w-4 h-4 text-green-600" /> : 
+                      <XCircle className="w-4 h-4 text-red-600" />
+                    }
+                    <span>Includes author attribution</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    {userAnswers.sentence.length > 20 ? 
+                      <CheckCircle className="w-4 h-4 text-green-600" /> : 
+                      <XCircle className="w-4 h-4 text-red-600" />
+                    }
+                    <span>Substantial sentence (not just a citation)</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    {!userAnswers.sentence.includes('"3.5 hours daily"') ? 
+                      <CheckCircle className="w-4 h-4 text-green-600" /> : 
+                      <XCircle className="w-4 h-4 text-red-600" />
+                    }
+                    <span>Uses your own words (not copying directly)</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    {userAnswers.sentence.toLowerCase().includes('social media') || 
+                     userAnswers.sentence.toLowerCase().includes('communication') ||
+                     userAnswers.sentence.toLowerCase().includes('teenager') ? 
+                      <CheckCircle className="w-4 h-4 text-green-600" /> : 
+                      <XCircle className="w-4 h-4 text-red-600" />
+                    }
+                    <span>Connects to your main argument</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Signal Phrases & Flow",
+      content: (
+        <div className="space-y-4">
+          <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+            <h3 className="font-semibold text-purple-800 mb-2">Signal Phrases Help Your Writing Flow</h3>
+            <p className="text-purple-700">Use these to introduce your sources smoothly:</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-white p-4 rounded-lg border">
+              <h4 className="font-semibold text-gray-800 mb-3">Agreement/Support:</h4>
+              <ul className="text-sm text-gray-700 space-y-1">
+                <li>• According to Smith...</li>
+                <li>• Research confirms that...</li>
+                <li>• As Jones demonstrates...</li>
+                <li>• Studies show that...</li>
+              </ul>
+            </div>
+            <div className="bg-white p-4 rounded-lg border">
+              <h4 className="font-semibold text-gray-800 mb-3">Contrast/Debate:</h4>
+              <ul className="text-sm text-gray-700 space-y-1">
+                <li>• However, Brown argues...</li>
+                <li>• Critics contend that...</li>
+                <li>• On the other hand...</li>
+                <li>• Despite this view...</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <h4 className="font-semibold mb-2">Example in Context:</h4>
+            <p className="text-sm italic">
+              "Social media has fundamentally changed teenage communication patterns. 
+              <span className="bg-yellow-200">According to recent research by Dr. Martinez</span>, 
+              modern teenagers are developing new forms of digital relationships that supplement traditional face-to-face interactions. 
+              <span className="bg-yellow-200">However, some critics argue</span> that these digital connections lack the depth of in-person relationships."
+            </p>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Citation Checklist",
+      content: (
+        <div className="space-y-4">
+          <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+            <h3 className="font-semibold text-red-800 mb-2">Don't Forget to Cite!</h3>
+            <p className="text-red-700">Every secondary source needs proper attribution, both in-text and in your bibliography.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-white p-4 rounded-lg border">
+              <h4 className="font-semibold text-gray-800 mb-3">In-Text Citation (MLA):</h4>
+              <div className="text-sm text-gray-700 space-y-2">
+                <p><strong>After a quote:</strong><br/>
+                "Quote here" (Author Page#).</p>
+                <p><strong>After paraphrase:</strong><br/>
+                Your sentence (Author Page#).</p>
+                <p><strong>With signal phrase:</strong><br/>
+                Smith argues that... (Page#).</p>
+              </div>
+            </div>
+            <div className="bg-white p-4 rounded-lg border">
+              <h4 className="font-semibold text-gray-800 mb-3">Works Cited Entry:</h4>
+              <div className="text-sm text-gray-700">
+                <p className="mb-2"><strong>Journal Article:</strong></p>
+                <p className="italic text-xs mb-3">Author. "Article Title." Journal Name, vol. #, no. #, Year, pp. ##-##.</p>
+                <p className="mb-2"><strong>Book:</strong></p>
+                <p className="italic text-xs">Author. Book Title. Publisher, Year.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+            <h4 className="font-semibold text-yellow-800 mb-2">Quick Reminder:</h4>
+            <ul className="text-yellow-700 text-sm space-y-1">
+              <li>✓ Every source mentioned needs a citation</li>
+              <li>✓ Check your assignment for required citation style</li>
+              <li>✓ Include page numbers when available</li>
+              <li>✓ Double-check spelling of author names</li>
+            </ul>
+          </div>
+        </div>
+      )
+    }
+  ];
+
+  const resetProgress = () => {
+    setCurrentStep(0);
+    setUserAnswers({});
+    setShowFeedback({});
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto p-6 bg-white">
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Secondary Sources Integration Practice</h1>
+        <p className="text-gray-600">Learn to effectively incorporate scholarly sources into your college papers</p>
+      </div>
+
+      {/* Progress Bar */}
+      <div className="mb-8">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm text-gray-600">Progress</span>
+          <span className="text-sm text-gray-600">{currentStep + 1} of {steps.length}</span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2">
+          <div 
+            className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+            style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+          ></div>
+        </div>
+      </div>
+
+      {/* Current Step */}
+      <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+        <div className="flex items-center mb-4">
+          <BookOpen className="w-6 h-6 text-blue-600 mr-2" />
+          <h2 className="text-2xl font-semibold text-gray-800">{steps[currentStep].title}</h2>
+        </div>
+        
+        {steps[currentStep].content}
+      </div>
+
+      {/* Navigation */}
+      <div className="flex justify-between items-center">
+        <button
+          onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+          disabled={currentStep === 0}
+          className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+            currentStep === 0 
+              ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+              : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
+          }`}
+        >
+          Previous
+        </button>
+
+        <div className="flex space-x-2">
+          <button
+            onClick={resetProgress}
+            className="px-4 py-2 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 transition-colors flex items-center space-x-1"
+          >
+            <RefreshCw className="w-4 h-4" />
+            <span>Reset</span>
+          </button>
+        </div>
+
+        <button
+          onClick={() => setCurrentStep(Math.min(steps.length - 1, currentStep + 1))}
+          disabled={currentStep === steps.length - 1}
+          className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+            currentStep === steps.length - 1 
+              ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+              : 'bg-blue-600 text-white hover:bg-blue-700'
+          }`}
+        >
+          Next
+        </button>
+      </div>
+
+      {/* Quick Tips Sidebar */}
+      {currentStep >= 2 && (
+        <div className="mt-8 bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-400">
+          <div className="flex items-center mb-2">
+            <Target className="w-5 h-5 text-indigo-600 mr-2" />
+            <h3 className="font-semibold text-indigo-800">Quick Tips</h3>
+          </div>
+          <ul className="text-indigo-700 text-sm space-y-1">
+            <li>• Introduce the source before using it</li>
+            <li>• Explain how it supports your point</li>
+            <li>• Don't let sources take over your voice</li>
+            <li>• Vary your integration methods</li>
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default SecondarySourcesTemplate;
